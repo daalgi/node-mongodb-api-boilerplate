@@ -21,7 +21,7 @@ class BaseDAO {
             return
 
         try {
-            console.log("\n\nInjecting...")
+            // console.log("\n\nInjecting...")
             this.collection = await conn
                 .db(process.env.DB_NAME)
                 .collection(this.collectionName)

@@ -1,31 +1,37 @@
 /**
  * Custom collection
  */
+const collection = "tasks"
 const { Router } = require("express")
 
 const BaseDAO = require('../BaseDAO')
 const BaseController = require('../BaseController')
 
 
-class TasksDAO extends BaseDAO {
+class CustomDAO extends BaseDAO {
+    // Edit custom collection functions...
 
 }
 
-const tasksDAO = new TasksDAO("tasks")
+const customDAO = new CustomDAO(collection)
 
-const tasksController = new BaseController(tasksDAO)
+class CustomController extends BaseController {
+    // Edit custom api calls...
+
+}
+const customController = new CustomController(customDAO)
 
 const router = new Router()
-router.route('/').get(tasksController.apiGetDocsList)
-router.route('/').post(tasksController.apiAddDoc)
-router.route('/').put(tasksController.apiUpdateDoc)
-router.route('/').delete(tasksController.apiDeleteDoc)
-router.route('/:_id').delete(tasksController.apiDeleteDoc)
-router.route('/max/:field').get(tasksController.apiGetMax)
-router.route('/exists/:field/:value').get(tasksController.apiExists)
+router.route('/').get(customController.apiGetDocsList)
+router.route('/').post(customController.apiAddDoc)
+router.route('/').put(customController.apiUpdateDoc)
+router.route('/').delete(customController.apiDeleteDoc)
+router.route('/:_id').delete(customController.apiDeleteDoc)
+router.route('/max/:field').get(customController.apiGetMax)
+router.route('/exists/:field/:value').get(customController.apiExists)
 
 module.exports = {
-    dao: tasksDAO,
-    url: '/api/tasks',
+    dao: customDAO,
+    url: `/api/${collection}`,
     router
 }

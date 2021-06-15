@@ -14,7 +14,7 @@ app.use(helmet.frameguard({ action: 'sameorigin' }))
 app.use(helmet.dnsPrefetchControl())
 // Only allow your site to send the referrer for your own pages
 app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
-//process.env.NODE_ENV !== "prod" && app.use(morgan("dev"))
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -29,10 +29,6 @@ app.get("/", (req, res) => {
 routes.forEach(({ url, router }) =>
     app.use(url, router)
 )
-
-//app.use("/api/v1/user", users)
-//app.use("/status", express.static("build"))
-//app.use("/", express.static("build"))
 
 app.use("*", (req, res) =>
     res.status(404).json({ error: "not found" })

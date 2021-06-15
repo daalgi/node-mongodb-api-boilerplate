@@ -5,17 +5,6 @@ const { MongoClient } = require("mongodb")
 const app = require("./app")
 const { daos } = require("./routes")
 
-// MIDDLEWARES
-// Prevent putting this page in an iframesunless it's on the same origin
-app.use(helmet.frameguard({ action: 'sameorigin' }))
-// Do not allow DNS prefetching
-app.use(helmet.dnsPrefetchControl())
-// Only allow your site to send the referrer for your own pages
-app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
-// Body parser
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // Setup variables
 require("dotenv").config()
 const hostname = process.env.NODE_ENV === "prod"
